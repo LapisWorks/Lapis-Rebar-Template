@@ -110,6 +110,10 @@ https://repo1.maven.org/maven2/io/github/pylonmc/rebar/<版本>/rebar-<版本>.j
   数值/倍率不要写死在代码里。
 - **语言**：`lang/en.yml` 和 `lang/zh.yml` 的 key **必须完全一致**（本模板带测试兜底）。
   显示名和描述放 lang，不要在 `ItemStackBuilder` 里写死；`getPlaceholders()` 的名字要和 `%xxx%` 对上。
+- **占位符必须用 `RebarArgument` 传**：Rebar 的翻译器只替换 `RebarArgument` 类型的参数
+  （内部是 `instanceof RebarArgument` + `getName()` 做文本替换）。`Component.translatable(key, 某个Component)`
+  里的 `%name%` **不会**被替换，会原样显示在界面/聊天里。要写
+  `Component.translatable(key, RebarArgument.of("name", 值))`。
 - **InvUI**：结构里没被用到的 ingredient 不会报错（可以放心复用同一段 builder 代码）；
   但结构里某个字符的槽数**不能超过**对应 `VirtualInventory` 的容量，否则 `InventorySlotElementSupplier` 抛异常。
 - **改显示名不要动 key**：`XxxKeys` 里的 key 一旦发布就别改，否则玩家已有物品/方块会失效。
