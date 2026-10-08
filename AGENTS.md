@@ -93,8 +93,18 @@ https://repo1.maven.org/maven2/io/github/pylonmc/rebar/<版本>/rebar-<版本>.j
   - **限流在电线物品上**（`WireRebarItem.getMaxPower()`），网络按每条边算负载；
     线径不够时机器拿到的是 `isPowered = false`，表现为直接停机。
   - 节点随方块 PDC 持久化，**没有公开 API 能删除节点** → 端口方案变更时旧存档无法迁移。
-- **`WireRebarItem` 只有 `getMaxPower()` 和 `getDisplayMaterial()`**：想做损耗 / 电压档 / 变压器，
+- **`WireRebarItem` 只有 `maxPower` 和 `displayMaterial`**：想做损耗 / 电压档 / 变压器，
   必须另加方块，别指望在"线物品"上做。
+- **电力网络只认显式连接**：`ElectricNetwork` 的边全部来自 `ElectricNode.getConnections()`
+  —— 电线实体，或 `ElectricNode.connect()`。**没有"相邻方块自动连电"这回事**，
+  所以"线缆方块铺成网络""按颜色分网""控制器主动按通道路由"这类设计在 Rebar 里做不了。
+  每条边的限流在 `ElectricNetwork.Edge.powerLimit` 上，由电线的 `maxPower` 决定。
+- **内容必须注册指南页，否则游戏内手册里看不到**：`SimpleStaticGuidePage(key)` →
+  `PAGE.addItem(物品)` → `RebarGuide.rootPage.addPage(图标物品, PAGE)`，
+  页面标题取 lang 的 `guide.page.<key 的 path>`。漏了这一步，物品照样能拿到、能用，
+  但玩家翻手册找不到它（新加内容也要记得加进页面列表）。
+- **Kotlin 的块注释是可嵌套的**：文档注释里出现 `/*`（例如写 `lang/*.yml`）会再开一层注释，
+  编译直接报 `Unclosed comment`。注释里别写 `/*`。
 - **设置**：`getSettingOrThrow("key", ConfigAdapter.X)` 读 `resources/settings/<内容键>.yml`
   （也支持 `settings/<namespace>/<内容键>.yml`）。**文件不存在会直接抛异常**，新增设置记得同步建文件。
   数值/倍率不要写死在代码里。
@@ -107,7 +117,7 @@ https://repo1.maven.org/maven2/io/github/pylonmc/rebar/<版本>/rebar-<版本>.j
 ## 目录约定
 
 ```
-src/main/kotlin/<包>/          XxxAddon.kt（入口）/ XxxKeys.kt / XxxItems.kt / XxxBlocks.kt
+src/main/kotlin/<包>/          XxxAddon.kt（入口）/ XxxKeys.kt / XxxItems.kt / XxxBlocks.kt / XxxPages.kt
                                items/ blocks/ 放具体实现
 src/main/resources/lang/       en.yml + zh.yml（key 必须一致）
 src/main/resources/settings/   <内容键>.yml，数值配置
