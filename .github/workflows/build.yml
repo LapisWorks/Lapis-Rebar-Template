@@ -1,11 +1,10 @@
 name: Build & Release
 
 on:
+  # 不在每次 push 时自动构建：私有仓库会消耗 Actions 分钟，日常改代码本地 ./gradlew build 就够了。
+  # 需要出包时推 v* 标签（会自动发 Release），或在 Actions 页面手动触发本工作流。
   push:
-    branches: [ main ]
     tags: [ 'v*' ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:

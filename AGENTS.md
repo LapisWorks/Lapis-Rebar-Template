@@ -127,6 +127,9 @@ src/test/kotlin/<包>/          纯函数与资源校验测试（lang 一致性�
 3. `git tag -a v1.0.0 -m "v1.0.0"` → `git push origin main v1.0.0`
 4. CI 自动构建并发布 GitHub Release（`.github/workflows/build.yml` 里 `on.push.tags: v*`）
 
+注意：**CI 不会在普通 push 时构建**（私有仓库要省 Actions 分钟），日常验证就本地跑
+`./gradlew build`；需要出包时推标签，或在 GitHub Actions 页面手动触发。
+
 ## 提交信息约定
 
 中文，正文按「做了什么 / 为什么 / 内容 / 影响面 / 验证」组织：
