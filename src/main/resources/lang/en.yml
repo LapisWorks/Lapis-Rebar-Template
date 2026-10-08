@@ -1,0 +1,16 @@
+addon: "Lapis-Rebar-Template"
+
+item:
+  example_item:
+    name: "<aqua>Example Item"
+    lore: |-
+      <gray>Power: <white>%power%
+      <gray>Read from settings/example_item.yml
+
+  example_block:
+    name: "<gray>Example Block"
+    lore: |-
+      <gray>Right-click to see how often it ticked
+
+message:
+  counter: "<gray>Ticked <white>%count%</white> times"

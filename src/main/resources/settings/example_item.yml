@@ -1,0 +1,5 @@
+# 示例物品的数值。
+# 文件名必须和内容键的名字一致（template:example_item -> settings/example_item.yml），
+# 否则 getSettingOrThrow 会直接抛异常。
+# 服务器可以在数据目录里放同名文件覆盖这些值。
+power: 250

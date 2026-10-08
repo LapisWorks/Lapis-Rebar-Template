@@ -1,0 +1,16 @@
+addon: "Lapis-Rebar-Template"
+
+item:
+  example_item:
+    name: "<aqua>示例物品"
+    lore: |-
+      <gray>功率：<white>%power%
+      <gray>数值来自 settings/example_item.yml
+
+  example_block:
+    name: "<gray>示例方块"
+    lore: |-
+      <gray>右键查看它 tick 了多少次
+
+message:
+  counter: "<gray>已 tick <white>%count%</white> 次"
