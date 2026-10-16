@@ -1,4 +1,4 @@
-addon: "Lapis-Rebar-Template"
+addon: "MyRebarAddon"
 
 item:
   example_item:

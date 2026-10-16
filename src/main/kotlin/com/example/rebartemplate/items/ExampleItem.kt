@@ -1,4 +1,4 @@
-package top.mc506lw.rebar.template.items
+package com.example.rebartemplate.items
 
 import io.github.pylonmc.rebar.config.adapter.ConfigAdapter
 import io.github.pylonmc.rebar.i18n.RebarArgument

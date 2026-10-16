@@ -1,4 +1,4 @@
-package top.mc506lw.rebar.template
+package com.example.rebartemplate
 
 import org.bukkit.NamespacedKey
 

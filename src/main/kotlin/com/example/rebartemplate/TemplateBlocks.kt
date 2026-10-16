@@ -1,8 +1,8 @@
-package top.mc506lw.rebar.template
+package com.example.rebartemplate
 
 import io.github.pylonmc.rebar.block.RebarBlock
 import org.bukkit.Material
-import top.mc506lw.rebar.template.blocks.ExampleBlock
+import com.example.rebartemplate.blocks.ExampleBlock
 
 /**
  * 方块注册。

@@ -1,4 +1,4 @@
-package top.mc506lw.rebar.template
+package com.example.rebartemplate
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

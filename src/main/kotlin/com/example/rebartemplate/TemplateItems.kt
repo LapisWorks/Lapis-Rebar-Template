@@ -1,12 +1,12 @@
-package top.mc506lw.rebar.template
+package com.example.rebartemplate
 
 import io.github.pylonmc.rebar.item.RebarItem
 import io.github.pylonmc.rebar.item.builder.ItemStackBuilder
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import top.mc506lw.rebar.template.items.ExampleBlockItem
-import top.mc506lw.rebar.template.items.ExampleItem
+import com.example.rebartemplate.items.ExampleBlockItem
+import com.example.rebartemplate.items.ExampleItem
 
 /**
  * 物品注册。

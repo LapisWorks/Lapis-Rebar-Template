@@ -1,4 +1,4 @@
-package top.mc506lw.rebar.template
+package com.example.rebartemplate
 
 import io.github.pylonmc.rebar.addon.RebarAddon
 import org.bukkit.Material

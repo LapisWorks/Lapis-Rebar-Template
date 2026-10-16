@@ -5,6 +5,25 @@
 > 🤖 **先读 [AGENTS.md](./AGENTS.md)** —— 里面写了怎么查 Rebar / Pylon 源码、这个生态里踩过的坑、
 > 构建与发布流程、提交信息约定。AI 助手和未来的自己都从那里开始。
 
+## 为什么会有这个模板
+
+官方有个 [`pylonmc/rebar-addon-template`](https://github.com/pylonmc/rebar-addon-template)，
+但它**已经很久没跟进了**（最后更新 2026-03，还停在 Rebar `0.36.2` / Pylon `0.33.2` / `paper-api 1.21.8` / Java 21，
+而且是 **Java + Lombok** 写的）。拿它当起点，第一件事就是先花半天升级依赖、再改成 Kotlin。
+
+这个模板就是为了省掉那半天：
+
+| | 官方模板 | 这个模板 |
+|---|---|---|
+| 最后更新 | 2026-03 | 持续跟进 |
+| Rebar | 0.36.2 | **0.44.4-26.2** |
+| Pylon | 0.33.2 | 已移除（需要时自己加） |
+| Paper API | 1.21.8 | **26.2** |
+| JDK | 21 | **25** |
+| 语言 | Java + Lombok | **Kotlin** |
+| 示例内容 | 空壳 | 物品 + 方块（含配置读取、PDC、tick、占位符） |
+| AI 协作 | 无 | **`AGENTS.md`**：查源码方法 + 踩坑清单 |
+
 ## 前置要求
 
 | 要求 | 版本 |
@@ -21,7 +40,7 @@ Rebar 和 Paper API 都是 `compileOnly`：**打出来的 jar 不能独立运行
 2. 改名四件套：
    - `settings.gradle.kts` → `rootProject.name`
    - `gradle.properties` → `group` / `main-class` / `version`
-   - 包名（现在是 `top.mc506lw.rebar.template`）
+   - 包名（现在是 `com.example.rebartemplate`）
    - `TemplateKeys.NAMESPACE` 和 `TemplateAddon.getKey()`（内容命名空间）
 3. 构建：`./gradlew build` → `build/libs/<项目名>-<版本>.jar`
 4. 放进服务器 `plugins/`，重启或 `/reload`
@@ -54,10 +73,10 @@ src/test/kotlin/<包>/ 纯函数与资源校验测试（自带一个 lang 一致
 两个示例都写满了注释，照着复制改就行。常用接口清单（GUI、物流、电力、展示实体）写在
 `blocks/ExampleBlock.kt` 的类注释里。
 
-## 本机说明
+## 说明
 
-- `gradle.properties` 里写死了本机 JDK 路径 `org.gradle.java.home=D:\Java\zulu25`；
-  换机器请改掉或删除。CI 会自动删这一行。
+- `gradle.properties` 里的 `org.gradle.java.home` 默认注释掉。如果你的 `java -version` 不是 25，
+  或者机器上有多个 JDK，就把那个 25 的路径填进去。
 - 中文资源统一 UTF-8，相关配置不要改。
 
 ## 发布

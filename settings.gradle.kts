@@ -5,5 +5,5 @@ pluginManagement {
     }
 }
 
-// 复制模板后把这里改成你的仓库名（会影响生成的 jar 名）
-rootProject.name = "Lapis-Rebar-Template"
+// 复制模板后把这里改成你的项目名（会决定生成的 jar 文件名）
+rootProject.name = "MyRebarAddon"

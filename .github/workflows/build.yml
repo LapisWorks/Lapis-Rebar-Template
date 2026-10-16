@@ -1,7 +1,7 @@
 name: Build & Release
 
 on:
-  # 不在每次 push 时自动构建：私有仓库会消耗 Actions 分钟，日常改代码本地 ./gradlew build 就够了。
+  # 不在每次 push 时自动构建：日常改代码本地 ./gradlew build 就够了。
   # 需要出包时推 v* 标签（会自动发 Release），或在 Actions 页面手动触发本工作流。
   push:
     tags: [ 'v*' ]
@@ -17,14 +17,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # gradle.properties 里可能写死了本机的 org.gradle.java.home（如 D:\Java\zulu25），
-      # 在 CI 上不存在，先移除，由 setup-java 提供的 JAVA_HOME 接管。
+      # gradle.properties 里的 org.gradle.java.home 是本机路径，在 CI 上不存在，
+      # 先移除，由 setup-java 提供的 JAVA_HOME 接管。
       - name: Remove local-only org.gradle.java.home
-        shell: pwsh
         run: |
-          (Get-Content gradle.properties) |
-            Where-Object { $_ -notmatch '^org\.gradle\.java\.home' } |
-            Set-Content gradle.properties
+          sed -i '/^org\.gradle\.java\.home/d' gradle.properties
 
       - name: Set up JDK 25 (Zulu)
         uses: actions/setup-java@v4
@@ -44,7 +41,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Lapis-Rebar-Template
+          name: ${{ github.event.repository.name }}
           path: build/libs/*.jar
           if-no-files-found: error
 

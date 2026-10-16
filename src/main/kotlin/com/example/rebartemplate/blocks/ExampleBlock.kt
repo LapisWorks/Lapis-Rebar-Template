@@ -1,4 +1,4 @@
-package top.mc506lw.rebar.template.blocks
+package com.example.rebartemplate.blocks
 
 import io.github.pylonmc.rebar.block.RebarBlock
 import io.github.pylonmc.rebar.block.context.BlockCreateContext
@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
-import top.mc506lw.rebar.template.TemplateKeys
+import com.example.rebartemplate.TemplateKeys
 
 /**
  * 示例方块：一个自己数 tick 的方块。

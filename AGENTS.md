@@ -22,8 +22,8 @@ Rebar 和 Paper API 都是 `compileOnly` —— 打出来的 jar 只能跑在**�
 | 只编译（快） | `./gradlew compileKotlin` |
 | 只跑测试 | `./gradlew test` |
 
-- `gradle.properties` 里写死了本机 `org.gradle.java.home=D:\Java\zulu25`。换机器要么改这里，要么删掉让它用 `JAVA_HOME`。
-  CI（`.github/workflows/build.yml`）会自动删掉这一行，所以别依赖它。
+- `gradle.properties` 里的 `org.gradle.java.home` 默认是注释掉的。如果你的 `java -version` 不是 25，
+  或者机器上装了多个 JDK，就把那个 25 的路径填进去；留空则用 `JAVA_HOME`。
 - 源码、资源、语言文件统一 UTF-8（`gradle.properties` 已强制），**别改编码相关配置**。
 
 ## 怎么查 Rebar / Pylon 源码（重点）
@@ -53,9 +53,9 @@ gh api "repos/pylonmc/pylon/contents/<路径>" --jq '.content' | base64 -d
 解包后用 `javap`：
 
 ```bash
-D:/Java/zulu25/bin/javap.exe -p <类>        # 看 API 签名
-D:/Java/zulu25/bin/javap.exe -p -c <类>     # 看字节码：常量、默认值、调用顺序都在这
-D:/Java/zulu25/bin/javap.exe -v -p <类>     # 常量池里的字符串（找配置路径、节点名特别有用）
+javap -p <类>        # 看 API 签名
+javap -p -c <类>     # 看字节码：常量、默认值、调用顺序都在这
+javap -v -p <类>     # 常量池里的字符串（找配置路径、节点名特别有用）
 ```
 
 **3. Maven Central 直接下 jar**（缓存里没有时）
@@ -70,7 +70,7 @@ https://repo1.maven.org/maven2/io/github/pylonmc/rebar/<版本>/rebar-<版本>.j
 ~/.gradle/caches/fabric-loom/<MC版本>/minecraft-merged.jar
 ```
 
-同样用 `javap` 反查。本机还有 paperweight 的反编译产物可看。
+同样用 `javap` 反查。
 
 **5. ⚠️ 仓库里的 `参考/` 目录**（如果有）只是某个时间点的源码副本，可能落后于 gradle 依赖。
 **API 一律以 `gradle.properties` 里的 rebar 版本为准。**
@@ -166,13 +166,4 @@ fix(1.2.1): 一句话说清改了什么
 验证
 - ./gradlew build 通过
 - 新增或更新了哪些单测
-```
-
-## 本机 git 备注（换了机器可删）
-
-这台机器上 `git push/fetch` 访问 github.com 会因 schannel 吊销检查失败
-（`CRYPT_E_NO_REVOCATION_CHECK`）。仓库操作优先用 `gh`；需要 `git push` 时：
-
-```bash
-git -c http.sslBackend=openssl -c http.sslCAInfo=C:/Users/mc506lw/.workbuddy-ai/win-ca.pem push
 ```
